@@ -1,0 +1,55 @@
+.close_button {
+  position: absolute;
+  right: 0;
+  top: 0;
+  padding: 20px;
+  height: 13px;
+  width: 13px;
+  cursor: pointer;
+}
+.title {
+  margin-bottom: 10px;
+  height: 40px;
+  background-color: #eeedf6;
+  padding-left: 10px;
+  width: -webkit-fill-available;
+  border: 1px solid #eeedf6;
+  border-radius: 8px;
+}
+.titleDescription {
+  margin-bottom: 10px;
+  height: 80px;
+  background-color: #eeedf6;
+  padding-left: 10px;
+  width: -webkit-fill-available;
+  border: 1px solid #eeedf6;
+  border-radius: 8px;
+}
+.calender {
+  height: 14px;
+  width: 12px;
+}
+.date_container {
+  width: fit-content;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid rgb(83 74 153);
+  border-radius: 24px;
+  padding: 0px 10px;
+  height: 29px;
+  display: flex;
+  cursor: pointer;
+  margin-bottom: 5px;
+}
+.date_text {
+  color: #534a99;
+  font-size: 14px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+.time_text {
+  color: #69b57d;
+  font-size: 14px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
