@@ -18,6 +18,18 @@
   width: 100vw;
 }
 
+.bottom-container-position {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  flex: 1;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+
 .bottom-container {
   display: flex;
   flex: 1;

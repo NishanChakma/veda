@@ -15,7 +15,7 @@
       <li v-for="item in allTasks" :key="item.id">
         <HomeCard
           @showModalWithType="showModalWithType"
-          :dataID="item.id"
+          :id="item.id"
           :title="item.title"
           :description="item.description"
           :date="item.date"
@@ -23,7 +23,11 @@
         />
       </li>
     </ul>
-    <div class="bottom-container">
+    <div
+      :class="
+        allTasks.length >= 3 ? 'bottom-container' : 'bottom-container-position'
+      "
+    >
       <img src="../assets/bottom-bg.png" class="bottom-bg" />
       <div
         class="bottom-child"

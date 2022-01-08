@@ -43,11 +43,11 @@ export default {
     description: String,
     date: String,
     time: String,
-    dataID: Number,
+    id: Number,
   },
   methods: {
     deleteBtn() {
-      console.log("delete", this.dataID);
+      this.$store.commit("deleteData", this.id);
     },
     cancelBtn() {
       console.log("cancel");

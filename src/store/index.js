@@ -131,6 +131,28 @@ const store = new Vuex.Store({
       }
     },
 
+    async deleteData(state, id) {
+      try {
+        const { data } = await axios({
+          method: "post",
+          url: `${baseURL}remove_task/${id}`,
+          headers: {
+            Accept: "application/json",
+            Authorization: `Bearer ${state.token}`,
+          },
+        });
+        if (data.status === "success") {
+          this.commit("loadAllTask");
+          state.showToast = true;
+          state.toastText = "Delete item successfull!";
+        }
+      } catch (e) {
+        console.warn(e);
+        state.showToast = true;
+        state.toastText = "Error while delete item!";
+      }
+    },
+
     //clear field
     clearField(state) {
       state.loading = false;
