@@ -17,15 +17,15 @@
     >
       <div class="home-card-container">
         <div class="home-card">
-          <p class="big-font text-bold">Online group discussion</p>
+          <p class="big-font text-bold">{{ title }}</p>
           <p class="small-font small-text-color">
-            Have a meeting with my friends
+            {{ description }}
           </p>
           <div class="home-card-flex">
             <img src="../assets/calendar.png" class="card-image" />
-            <p class="date">Today</p>
+            <p class="date">{{ date }}</p>
             <img src="../assets/watch.png" class="card-image" />
-            <p class="time">12.30PM</p>
+            <p class="time">{{ time }}</p>
           </div>
         </div>
         <div class="circle" @click="$emit('showModalWithType')"></div>
@@ -39,13 +39,15 @@ import VSwipeout from "v-swipeout";
 export default {
   name: "HomeCard",
   props: {
-    title: {
-      type: String,
-    },
+    title: String,
+    description: String,
+    date: String,
+    time: String,
+    dataID: Number,
   },
   methods: {
     deleteBtn() {
-      console.log("delete");
+      console.log("delete", this.dataID);
     },
     cancelBtn() {
       console.log("cancel");

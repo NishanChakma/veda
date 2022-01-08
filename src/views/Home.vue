@@ -11,9 +11,18 @@
       <Button title="Todo" />
       <Button title="completed" />
     </div>
-    <HomeCard @showModalWithType="showModalWithType" />
-    <HomeCard @showModalWithType="showModalWithType" />
-    <HomeCard @showModalWithType="showModalWithType" />
+    <ul class="no-bullets">
+      <li v-for="item in allTasks" :key="item.id">
+        <HomeCard
+          @showModalWithType="showModalWithType"
+          :dataID="item.id"
+          :title="item.title"
+          :description="item.description"
+          :date="item.date"
+          :time="item.time"
+        />
+      </li>
+    </ul>
     <div class="bottom-container">
       <img src="../assets/bottom-bg.png" class="bottom-bg" />
       <div
@@ -66,8 +75,14 @@ export default {
       modalType: 0, //addTask = 0 and editTask = 1
     };
   },
+  computed: {
+    allTasks() {
+      return JSON.parse(JSON.stringify(this.$store.state.allTasks));
+    },
+  },
   methods: {
     showModalWithType() {
+      // console.log("11111111111111111111111", this.allTasks);
       this.showModal = true;
       this.modalType = 1;
     },

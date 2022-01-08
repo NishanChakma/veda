@@ -2,6 +2,7 @@ import Vuex from "vuex";
 import Vue from "vue";
 import axios from "axios";
 import router from "../routes";
+import moment from "moment";
 
 Vue.use(Vuex);
 
@@ -9,20 +10,46 @@ const baseURL = process.env.VUE_APP_MY_API_KEY;
 const store = new Vuex.Store({
   state: {
     loading: false,
-    email: "",
-    password: "",
+    email: "tester@tester.com",
+    password: "123456",
     error: false,
     errorText: "",
     authenticated: false,
-    token: "",
+    token: "45|GVy1RCXK2PjnuqoIIu5FtUaJdHScDd2xSePBmjCu",
     name: "",
     confirmPass: "",
     showToast: false,
     toastText: "",
+    allTasks: [],
   },
+
   mutations: {
     triggerToast(state) {
       state.showToast = false;
+    },
+
+    //all task
+    async loadAllTask(state) {
+      try {
+        const { data } = await axios({
+          method: "get",
+          url: `${baseURL}tasks`,
+          headers: {
+            Accept: "application/json",
+            Authorization: `Bearer ${state.token}`,
+          },
+        });
+        let res = await data.tasks;
+        let respose = JSON.parse(JSON.stringify(res));
+        let changeDateTime = respose.map(({ due_date, ...res }) => ({
+          ...res,
+          date: moment(due_date * 1000).format("DD.MM.YYYY"),
+          time: moment(due_date * 1000).format("hh.ss a"),
+        }));
+        state.allTasks = changeDateTime;
+      } catch {
+        this.commit("clearField");
+      }
     },
 
     //login handle
@@ -48,6 +75,7 @@ const store = new Vuex.Store({
           state.token = data.token;
           state.showToast = true;
           state.toastText = "Login Successfull";
+          this.commit("loadAllTask");
           router.push("/home");
         } else {
           state.error = true;
