@@ -31,6 +31,7 @@ const store = new Vuex.Store({
     dueDate: moment().unix(),
     date: moment().format("YYYY-MM-DD"),
     time: moment().format("hh.mm a"),
+    search: "",
   },
 
   mutations: {
@@ -58,6 +59,27 @@ const store = new Vuex.Store({
         state.showModal = true;
         state.modalType = 1;
       }
+    },
+
+    //search
+    async searchHandle(state, param) {
+      if (param.length === 0) {
+        this.commit("loadAllTask");
+      }
+      var index, value, result;
+      for (index = 0; index < state.allTasks.length; ++index) {
+        value = state.allTasks[index].title;
+        if (value.substring(0, 2) === param) {
+          result = value;
+          break;
+        }
+      }
+      let filterArr = state.allTasks.filter((res) => res.title === result);
+      let respose = JSON.parse(JSON.stringify(filterArr));
+      if (filterArr.length > 0) {
+        state.allTasks = respose;
+      }
+      state.search = param;
     },
 
     //all task
@@ -176,11 +198,9 @@ const store = new Vuex.Store({
         });
         if (data.status === "success") {
           this.commit("loadAllTask");
-          alert("Delete item successfull!");
         }
       } catch (e) {
         console.warn(e);
-        alert("Error while delete item!");
       }
     },
 
@@ -210,15 +230,9 @@ const store = new Vuex.Store({
         if (data.status === "success") {
           this.commit("loadAllTask");
           state.showModal = false;
-          alert(
-            state.modalType === 1
-              ? "Update item successfull!"
-              : "Add item successfull!"
-          );
         }
       } catch (e) {
         console.warn(e);
-        alert("Error!");
       }
     },
 

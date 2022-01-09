@@ -4,7 +4,12 @@
     <Header />
     <Card />
     <div class="input_home_container">
-      <input type="text" class="input color" placeholder="Find your tasks" />
+      <input
+        type="text"
+        class="input color"
+        placeholder="Find your tasks"
+        v-model="search"
+      />
       <img src="../assets/search.png" class="input_img" />
     </div>
     <!-- <div class="flex-row">
@@ -77,6 +82,14 @@ export default {
   computed: {
     allTasks() {
       return JSON.parse(JSON.stringify(this.$store.state.allTasks));
+    },
+    search: {
+      get() {
+        return this.$store.state.search;
+      },
+      set(val) {
+        this.$store.commit("searchHandle", val);
+      },
     },
   },
   methods: {
