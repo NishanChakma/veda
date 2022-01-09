@@ -45,10 +45,12 @@ const store = new Vuex.Store({
         state.header = "Add your task";
         state.buttonText = "Add";
         state.showModal = true;
+        state.modalType = 0;
       } else {
         state.header = "Edit your task";
         state.buttonText = "Update";
         state.showModal = true;
+        state.modalType = 1;
       }
     },
 
