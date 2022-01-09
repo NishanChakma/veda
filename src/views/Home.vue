@@ -14,7 +14,7 @@
     <ul class="no-bullets">
       <li v-for="item in allTasks" :key="item.id">
         <HomeCard
-          @showModalWithType="showModalWithType"
+          @showModalWithType="showModalEditTask"
           :id="item.id"
           :title="item.title"
           :description="item.description"
@@ -29,23 +29,20 @@
       "
     >
       <img src="../assets/bottom-bg.png" class="bottom-bg" />
-      <div
-        class="bottom-child"
-        @click="
-          showModal = true;
-          modalType = 0;
-        "
-      >
+      <div class="bottom-child" @click="showModalAddTask">
         <img src="../assets/plus.png" class="plus" />
         <p class="bottom-text">Add Task</p>
       </div>
     </div>
     <transition name="modal">
-      <div v-if="showModal" @close="showModal = false">
+      <div
+        v-if="$store.state.showModal"
+        @close="$store.state.showModal = false"
+      >
         <div class="modal-mask">
           <div class="modal-wrapper">
             <div class="modal-container">
-              <AddTask @closeModal="showModal = false" :modalType="modalType" />
+              <AddorEditTask @closeModal="$store.state.showModal = false" />
             </div>
           </div>
         </div>
@@ -60,7 +57,7 @@ import Header from "../components/Header.vue";
 import Card from "../components/Card.vue";
 import Button from "../components/Button.vue";
 import HomeCard from "../components/HomeCard.vue";
-import AddTask from "../components/AddTask.vue";
+import AddorEditTask from "../components/AddorEditTask.vue";
 
 export default {
   name: "Home",
@@ -70,13 +67,11 @@ export default {
     Card,
     Button,
     HomeCard,
-    AddTask,
+    AddorEditTask,
   },
   data() {
     return {
-      showToast: true,
       showModal: false,
-      modalType: 0, //addTask = 0 and editTask = 1
     };
   },
   computed: {
@@ -85,10 +80,12 @@ export default {
     },
   },
   methods: {
-    showModalWithType() {
-      // console.log("11111111111111111111111", this.allTasks);
-      this.showModal = true;
-      this.modalType = 1;
+    async showModalAddTask() {
+      await this.$store.commit("addorEditModal", 0);
+    },
+    async showModalEditTask(id) {
+      await this.$store.commit("setTaskId", id);
+      await this.$store.commit("addorEditModal", 1);
     },
   },
 };

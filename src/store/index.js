@@ -21,11 +21,35 @@ const store = new Vuex.Store({
     showToast: false,
     toastText: "",
     allTasks: [],
+    taskId: null,
+    showModal: false,
+    modalType: 0,
+    header: "",
+    buttonText: "",
+    title: "",
+    shortDescription: "",
+    dueDate: moment().unix(),
   },
 
   mutations: {
     triggerToast(state) {
       state.showToast = false;
+    },
+
+    setTaskId(state, id) {
+      state.taskId = id;
+    },
+
+    addorEditModal(state, param) {
+      if (param === 0) {
+        state.header = "Add your task";
+        state.buttonText = "Add";
+        state.showModal = true;
+      } else {
+        state.header = "Edit your task";
+        state.buttonText = "Update";
+        state.showModal = true;
+      }
     },
 
     //all task
@@ -131,6 +155,7 @@ const store = new Vuex.Store({
       }
     },
 
+    //delete item
     async deleteData(state, id) {
       try {
         const { data } = await axios({
@@ -153,6 +178,42 @@ const store = new Vuex.Store({
       }
     },
 
+    //add or edit item
+    async addOrEditData(state, e) {
+      e.preventDefault();
+      try {
+        let url =
+          state.modalType === 1 ? "add_task/" + state.taskId : "add_task";
+        const { data } = await axios({
+          method: "post",
+          url: `${baseURL + url}`,
+          data: {
+            title: state.title,
+            description: state.shortDescription,
+            due_date: state.dueDate,
+          },
+          headers: {
+            Accept: "application/json",
+            Authorization: `Bearer ${state.token}`,
+          },
+        });
+        console.log(data);
+        if (data.status === "success") {
+          this.commit("loadAllTask");
+          state.showToast = true;
+          state.showModal = false;
+          state.toastText =
+            state.modalType === 1
+              ? "Update item successfull!"
+              : "Add item successfull!";
+        }
+      } catch (e) {
+        console.warn(e);
+        state.showToast = true;
+        state.toastText = "Error!";
+      }
+    },
+
     //clear field
     clearField(state) {
       state.loading = false;
@@ -160,10 +221,9 @@ const store = new Vuex.Store({
       state.password = "";
       state.error = false;
       state.errorText = "";
-      state.authenticated = false;
-      state.token = "";
       state.name = "";
       state.confirmPass = "";
+      state.taskId = null;
     },
   },
 });

@@ -28,7 +28,7 @@
             <p class="time">{{ time }}</p>
           </div>
         </div>
-        <div class="circle" @click="$emit('showModalWithType')"></div>
+        <div class="circle" @click="$emit('showModalWithType', id)"></div>
       </div>
     </v-swipeout>
   </div>
