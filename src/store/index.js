@@ -29,6 +29,8 @@ const store = new Vuex.Store({
     title: "",
     shortDescription: "",
     dueDate: moment().unix(),
+    date: moment().format("YYYY-MM-DD"),
+    time: moment().format("hh.mm a"),
   },
 
   mutations: {
@@ -181,6 +183,10 @@ const store = new Vuex.Store({
     //add or edit item
     async addOrEditData(state, e) {
       e.preventDefault();
+      let unixTime = moment(
+        state.date + " " + state.time,
+        "YYYY-MM-DD hh.mm a"
+      ).unix();
       try {
         let url =
           state.modalType === 1 ? "add_task/" + state.taskId : "add_task";
@@ -190,7 +196,7 @@ const store = new Vuex.Store({
           data: {
             title: state.title,
             description: state.shortDescription,
-            due_date: state.dueDate,
+            due_date: unixTime,
           },
           headers: {
             Accept: "application/json",

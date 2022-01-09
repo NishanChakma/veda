@@ -52,3 +52,18 @@
   margin: 5px;
   margin-bottom: 25px;
 }
+
+.mx-input {
+  border: none !important;
+}
+.mx-input:hover,
+.mx-input:focus {
+  border: none !important;
+}
+.mx-icon-calendar,
+.mx-icon-clear {
+  display: none !important;
+}
+.mx-datepicker {
+  width: 115px !important;
+}

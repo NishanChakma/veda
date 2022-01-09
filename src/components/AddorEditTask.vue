@@ -27,14 +27,20 @@
       />
       <div class="date_container">
         <img src="../assets/calendar.png" class="calender" />
-        <p v-if="$store.state.modalType === 0" class="date_text">Due date</p>
-        <p v-if="$store.state.modalType === 1" class="date_text">Today</p>
-        <img
-          v-if="$store.state.modalType === 1"
-          src="../assets/watch.png"
-          class="calender"
-        />
-        <p v-if="$store.state.modalType === 1" class="time_text">12.30 PM</p>
+        <date-picker
+          v-model="$store.state.date"
+          value-type="YYYY-MM-DD"
+          format="YYYY-MM-DD"
+          :placeholder="$store.state.date"
+        ></date-picker>
+        <img src="../assets/watch.png" class="calender" />
+        <date-picker
+          v-model="$store.state.time"
+          format="hh:mm a"
+          value-type="format"
+          type="time"
+          :placeholder="$store.state.time"
+        ></date-picker>
       </div>
       <Button
         :title="$store.state.buttonText"
@@ -47,15 +53,14 @@
 
 <script>
 import Button from "./Button.vue";
+import DatePicker from "vue2-datepicker";
+import "vue2-datepicker/index.css";
+
 export default {
   name: "AddorEditTask",
   components: {
     Button,
-  },
-  data() {
-    return {
-      input: "",
-    };
+    DatePicker,
   },
 };
 </script>
