@@ -7,10 +7,10 @@
       <input type="text" class="input color" placeholder="Find your tasks" />
       <img src="../assets/search.png" class="input_img" />
     </div>
-    <div class="flex-row">
+    <!-- <div class="flex-row">
       <Button title="Todo" />
       <Button title="completed" />
-    </div>
+    </div> -->
     <ul class="no-bullets">
       <li v-for="item in allTasks" :key="item.id">
         <HomeCard
@@ -55,7 +55,7 @@
 import Toast from "../hooks/Toast.vue";
 import Header from "../components/Header.vue";
 import Card from "../components/Card.vue";
-import Button from "../components/Button.vue";
+// import Button from "../components/Button.vue";
 import HomeCard from "../components/HomeCard.vue";
 import AddorEditTask from "../components/AddorEditTask.vue";
 
@@ -65,7 +65,7 @@ export default {
     Toast,
     Header,
     Card,
-    Button,
+    // Button,
     HomeCard,
     AddorEditTask,
   },
