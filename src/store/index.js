@@ -38,8 +38,10 @@ const store = new Vuex.Store({
       state.showToast = false;
     },
 
-    setTaskId(state, id) {
+    setTaskId(state, { id, date, time }) {
       state.taskId = id;
+      state.date = date;
+      state.time = time;
     },
 
     addorEditModal(state, param) {
@@ -48,6 +50,8 @@ const store = new Vuex.Store({
         state.buttonText = "Add";
         state.showModal = true;
         state.modalType = 0;
+        state.date = moment().format("YYYY-MM-DD");
+        state.time = moment().format("hh.mm a");
       } else {
         state.header = "Edit your task";
         state.buttonText = "Update";
@@ -203,7 +207,6 @@ const store = new Vuex.Store({
             Authorization: `Bearer ${state.token}`,
           },
         });
-        console.log(data);
         if (data.status === "success") {
           this.commit("loadAllTask");
           state.showModal = false;

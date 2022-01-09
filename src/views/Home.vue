@@ -83,9 +83,13 @@ export default {
     async showModalAddTask() {
       await this.$store.commit("addorEditModal", 0);
     },
-    async showModalEditTask(id) {
-      await this.$store.commit("setTaskId", id);
+    async showModalEditTask(id, date, time) {
       await this.$store.commit("addorEditModal", 1);
+      await this.$store.commit("setTaskId", {
+        id,
+        date,
+        time,
+      });
     },
   },
 };
