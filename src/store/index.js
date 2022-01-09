@@ -170,13 +170,11 @@ const store = new Vuex.Store({
         });
         if (data.status === "success") {
           this.commit("loadAllTask");
-          state.showToast = true;
-          state.toastText = "Delete item successfull!";
+          alert("Delete item successfull!");
         }
       } catch (e) {
         console.warn(e);
-        state.showToast = true;
-        state.toastText = "Error while delete item!";
+        alert("Error while delete item!");
       }
     },
 
@@ -202,17 +200,16 @@ const store = new Vuex.Store({
         console.log(data);
         if (data.status === "success") {
           this.commit("loadAllTask");
-          state.showToast = true;
           state.showModal = false;
-          state.toastText =
+          alert(
             state.modalType === 1
               ? "Update item successfull!"
-              : "Add item successfull!";
+              : "Add item successfull!"
+          );
         }
       } catch (e) {
         console.warn(e);
-        state.showToast = true;
-        state.toastText = "Error!";
+        alert("Error!");
       }
     },
 
